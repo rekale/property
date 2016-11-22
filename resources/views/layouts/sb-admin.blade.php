@@ -9,12 +9,11 @@
 
 	<div id="wrapper">
 		@include('layouts.partials.sb-admin-navbar')
-		<div id="page-wrapper">
+		<div id="page-wrapper" style="min-height: 412px;">
 			<div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">@yield('page-title')</h1>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
             
             @yield('content')
