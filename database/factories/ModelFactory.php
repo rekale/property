@@ -22,3 +22,26 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Apartments\Apartment::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'address' => $faker->address,
+        'district' => $faker->word,
+        'price' => $faker->randomNumber(),
+        'bedroom_total' => $faker->numberBetween(1, 5),
+        'unit_total' => $faker->numberBetween(1, 5),
+        'maintenance_fee' => $faker->randomNumber(),
+        'facilities' => json_encode(['tv', 'ac', 'tes']),
+    ];
+});
+
+$factory->define(App\Apartments\Image::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+    	'name' => $faker->word,
+        'label' => $faker->randomElement(['kamar', 'wc', 'ruang tamu']),
+    	'url' => $faker->imageUrl(640, 480, 'city'),
+    ];
+});
