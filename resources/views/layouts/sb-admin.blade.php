@@ -12,6 +12,7 @@
 		<div id="page-wrapper" style="min-height: 412px;">
 			<div class="row">
                 <div class="col-lg-12">
+                	@include('flash::message')
                     <h1 class="page-header">@yield('page-title')</h1>
                 </div>
             </div>
@@ -21,5 +22,8 @@
 	</div>
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script>
+		$('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+	</script>
 </body>
 </html>

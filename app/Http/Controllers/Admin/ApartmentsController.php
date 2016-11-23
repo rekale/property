@@ -83,6 +83,10 @@ class ApartmentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Apartment::destroy($id);
+
+        flash('apartment has been deleted', 'success');
+
+        return redirect()->back();
     }
 }

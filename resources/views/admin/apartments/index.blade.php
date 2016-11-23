@@ -49,7 +49,23 @@
 			</table>
 			<div class="btn-group">
 				<a class="btn btn-success"><i class="fa fa-pencil"></i></a>
-				<a class="btn btn-danger"><i class="fa fa-eraser" aria-hidden="true"></i></a>
+				<a class="btn btn-danger" onclick="if( confirm('are you sure?') ) { 
+								event.preventDefault();
+                                document.getElementById('apartment-{{ $apartment->id }}').submit();
+                     }"
+                 >
+					<i class="fa fa-eraser" aria-hidden="true"></i>
+				</a>
+				<form 
+					id="apartment-{{ $apartment->id }}" 
+					action="{{ route('apartments.destroy', ['id' => $apartment->id ]) }}" 
+					method="POST" 
+					style="display: none;"
+				>
+					{{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+					
+                </form>
 			</div>
 		</div>
 	</div>
