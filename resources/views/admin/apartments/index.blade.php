@@ -39,7 +39,7 @@
 					</tr>
 					<tr>
 						<th>Maintenance Fee</th>
-						<td>{{ $apartment->maintenance_fee }}</td>
+						<td>{{ number_format($apartment->maintenance_fee, 0, '.', '.') }}</td>
 					</tr>
 					<tr>
 						<th>Facilities</th>
