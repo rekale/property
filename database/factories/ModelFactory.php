@@ -26,6 +26,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Apartments\Apartment::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
+        'cover_image' => $faker->imageUrl(640, 480, 'city'),
         'address' => $faker->address,
         'district' => $faker->word,
         'price' => $faker->randomNumber(),

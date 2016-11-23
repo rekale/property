@@ -37,15 +37,16 @@ class DatabaseSeeder extends Seeder
 
     public function refresh()
     {
-  		$excepts = ['migrations'];
 
-		$col = 'Tables_in_' . config('database.connections.mysql.database');
+  		$col = 'Tables_in_' . config('database.connections.mysql.database');
 
-		$tables = array_except(DB::select('SHOW TABLES'), ['migrations']);
+  		$tables = DB::select('SHOW TABLES');
 
-		foreach ($tables as $table) {
-			DB::table($table->$col)->truncate();
-		}
+  		foreach ($tables as $table) {
+        if($table->$col != 'migrations'){
+          DB::table($table->$col)->truncate();
+        }
+  		}
     }
 
 }

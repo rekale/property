@@ -8,6 +8,7 @@ class Apartment extends Model
 {
     protected $fillable = [
 	    'name',
+        'cover_image',
         'address',
         'district',
         'price',
