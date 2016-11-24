@@ -2,6 +2,9 @@
 
 @section('page-title')
 	Apartements
+	<a class="btn btn-primary" href="{{ route('apartments.create') }}">
+		<i class="fa fa-plus"></i> 
+	</a>
 @endsection
 
 @section('content')
@@ -17,6 +20,10 @@
 		<div class="col-md-9">
 			<table class="table table-striped">
 				<tbody>
+					<tr>
+						<th>No</th>
+						<td>{{ $apartment->id }}</td>
+					</tr>
 					<tr>
 						<th>Address</th>
 						<td>{{ $apartment->address }}</td>
@@ -43,15 +50,22 @@
 					</tr>
 					<tr>
 						<th>Facilities</th>
-						<td>@foreach(json_decode($apartment->facilities) as $f){{ $f }}, @endforeach</td>
+						<td>@foreach($apartment->facilities as $f){{ $f }}, @endforeach</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="btn-group">
-				<a class="btn btn-success"><i class="fa fa-pencil"></i></a>
-				<a class="btn btn-danger" onclick="if( confirm('are you sure?') ) { 
+				<a class="btn btn-success" href="{{ route('apartments.edit', ['id' => $apartment->id]) }}">
+					<i class="fa fa-pencil"></i>
+				</a>
+				<a  class="btn btn-danger"
+					href="{{ route('apartments.destroy', ['id' => $apartment->id ]) }}" 
+					onclick="if( confirm('are you sure?') ) { 
 								event.preventDefault();
                                 document.getElementById('apartment-{{ $apartment->id }}').submit();
+                     }
+                     else{
+                     	event.preventDefault();
                      }"
                  >
 					<i class="fa fa-eraser" aria-hidden="true"></i>

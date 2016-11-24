@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "sb-admin-2": "*"
+    "sb-admin-2": "*",
+    "select2-bootstrap-theme": "*"
   }
 }
