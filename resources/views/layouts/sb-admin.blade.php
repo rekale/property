@@ -8,9 +8,9 @@
 		<title>SB Admin</title>
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets/sb-admin-2/css/bootstrap.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets/sb-admin-2/css/plugins/metisMenu/metisMenu.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/sb-admin-2/css/sb-admin-2.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets/sb-admin-2/css/plugins/morris.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets/sb-admin-2/font-awesome-4.1.0/css/font-awesome.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets/sb-admin-2/css/sb-admin-2.css') }}">
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets/select2/dist/css/select2.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('assets/select2-bootstrap-theme/dist/select2-bootstrap.css') }}">
@@ -35,8 +35,8 @@
 	<script  src="{{ asset('assets/sb-admin-2/js/jquery-1.11.0.js') }}"></script>
 	<script  src="{{ asset('assets/sb-admin-2/js/bootstrap.js') }}"></script>
 	<script  src="{{ asset('assets/sb-admin-2/js/plugins/metisMenu/metisMenu.js') }}"></script>
-	<script  src="{{ asset('assets/sb-admin-2/js/plugins/morris/morris.min.js') }}"></script>	
 	<script  src="{{ asset('assets/sb-admin-2/js/plugins/morris/raphael.min.js') }}"></script>
+	<script  src="{{ asset('assets/sb-admin-2/js/plugins/morris/morris.min.js') }}"></script>
 	<script src="{{ asset('assets/sb-admin-2/js/sb-admin-2.js') }}"></script>
 	
 	<script src="{{ asset('assets/select2/dist/js/select2.js') }}"></script>

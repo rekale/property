@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Apartments\Album;
 use App\Apartments\Apartment;
 use App\Apartments\Image;
+use Illuminate\Database\Seeder;
 
 class ApartmentsSeeder extends Seeder
 {
@@ -13,8 +14,6 @@ class ApartmentsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Apartment::class, 50)->create()->each(function ($apartment) {
-		  	$apartment->images()->saveMany(factory(Image::class, 10)->make());
-	 	 });
+        factory(Apartment::class, 50)->create();
     }
 }

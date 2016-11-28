@@ -15,6 +15,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'novan',
             'email' => 'project@novan.com',
             'password' => bcrypt('123123'),
+            'level' => 3,
+            'active' => true,
         ]);
     }
 }
