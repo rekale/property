@@ -16,6 +16,7 @@
 						<th>No</th>
 						<th>Name</th>
 						<th>Email</th>
+						<th>Level</th>
 						<th>Active</th>
 						<th>Action</th>
 					</tr>
@@ -24,6 +25,7 @@
 							<td>{{ $user->id }}</td>
 							<td>{{ $user->name }}</td>
 							<td>{{ $user->email }}</td>
+							<td>{{ $user->level }}</td>
 							<td>{{ $user->active ? 'yes': 'no' }}</td>
 							<td>
 								<button class="btn btn-{{ $user->active ? 'danger':'primary' }}"
