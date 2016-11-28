@@ -118,7 +118,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if(Auth::user()->level === 3)
+                        @if(Auth::user()->level == 3)
                             <li>
                                 <a href="{{ route('users.index') }}"><i class="fa fa-user fa-fw"></i> Users</a>
                             </li>
