@@ -23,4 +23,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
 
 	Route::resource('apartments', 'ApartmentsController');
 
+	Route::resource('users', 'UsersController');	
+
 });
