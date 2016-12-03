@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApartmentAlbumTable extends Migration
+class CreateAlbumApartmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateApartmentAlbumTable extends Migration
      */
     public function up()
     {
-        Schema::create('apartment_album', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('album_apartment', function (Blueprint $table) {
+            $table->unsignedInteger('album_id');
+            $table->unsignedInteger('apartment_id');
+            $table->text('images');
             $table->timestamps();
+
+            $table->primary(['apartment_id', 'album_id']);
         });
     }
 
@@ -26,6 +30,6 @@ class CreateApartmentAlbumTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apartment_album');
+        Schema::dropIfExists('album_apartment');
     }
 }

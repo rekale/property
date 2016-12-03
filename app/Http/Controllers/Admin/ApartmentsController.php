@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Apartments\Album;
 use App\Apartments\Apartment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApartmentRequest;
@@ -27,7 +28,9 @@ class ApartmentsController extends Controller
      */
     public function create()
     {
-        return view('admin.apartments.create');
+        $albums = Album::pluck('name', 'id');
+        
+        return view('admin.apartments.create', compact('albums'));
     }
 
     /**

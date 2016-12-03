@@ -111,10 +111,13 @@
                             <a href="{{ url('/') }}"><i class="fa fa-camera-retro fa-fw"></i> Albums</a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Create Album</a>
+                                    <a href="{{ route('albums.create') }}">Create Album</a>
                                 </li>
                                 <li>
-                                    <a href="#">Upload Photos</a>
+                                    <a href="{{ route('albums.upload') }}">Upload Photos</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('albums.index') }}">List Album</a>
                                 </li>
                             </ul>
                         </li>

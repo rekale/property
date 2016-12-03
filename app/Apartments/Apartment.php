@@ -2,8 +2,8 @@
 
 namespace App\Apartments;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Admin\ApartmentsController;
+use Illuminate\Database\Eloquent\Model;
 
 class Apartment extends Model
 {
@@ -19,9 +19,9 @@ class Apartment extends Model
         'facilities',
     ];
 
-    public function images()
+    public function albums()
     {
-        return $this->hasMany(Image::class);
+        return $this->belongsToMany(Album::class)->withPivot('images');
     }
 
     public function getFacilitiesAttribute($value)
