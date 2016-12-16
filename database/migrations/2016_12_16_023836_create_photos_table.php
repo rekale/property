@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumApartmentTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateAlbumApartmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('album_apartment', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedInteger('album_id');
-            $table->unsignedInteger('apartment_id');
-            $table->text('images');
+            $table->string('url');
             $table->timestamps();
 
-            $table->primary(['apartment_id', 'album_id']);
+            $table->foreign('album_id')
+                  ->references('id')
+                  ->on('albums')
+                  ->onDelete('cascade');
         });
     }
 
@@ -30,6 +33,6 @@ class CreateAlbumApartmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_apartment');
+        Schema::dropIfExists('photos');
     }
 }

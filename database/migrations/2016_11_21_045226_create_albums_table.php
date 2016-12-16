@@ -15,8 +15,14 @@ class CreateAlbumsTable extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('apartment_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->foreign('apartment_id')
+                  ->references('id')
+                  ->on('apartments')
+                  ->onDelete('cascade');
         });
     }
 

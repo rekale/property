@@ -16,6 +16,19 @@ class AlbumsController extends Controller
 
         return view('admin.albums.index', compact('apartments'));
     }
+
+    public function update($id, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255'
+        ]);
+
+        Album::find($id)->update($request->all());
+
+        flash('album has been updated');
+
+        return redirect()->back();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +70,8 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        return view('admin.albums.create');
+        $apartments = Apartment::all();
+        return view('admin.albums.create', compact('apartments'));
     }
 
     /**
@@ -87,7 +101,7 @@ class AlbumsController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::find($id); 
+        $apartment = Apartment::with('albums')->find($id); 
 
         return view('admin.albums.show', compact('apartment'));
     }
@@ -100,22 +114,16 @@ class AlbumsController extends Controller
      */
     public function edit($id)
     {
-        $apartment = Apartment::findOrFail($id);
+        $album = Album::findOrFail($id);
 
-        return view('admin.apartments.edit', compact('apartment'));
+        return view('admin.albums.edit', compact('album'));
     }
 
-    public function showImages($album_id, $apartment_id)
+    public function showImages($id)
     {
-        $apartment = Apartment::with('albums')->find($apartment_id);
+        $album = Album::with('photos')->find($id);
 
-        $album = $apartment->albums->where('id', $album_id)->flatten()[0];
-
-        $images = json_decode($album->pivot->images);
-
-        debug($images);
-
-        return view('admin.albums.show-images', compact('images'));
+        return view('admin.albums.show-images', compact('album'));
     }
 
     /**
@@ -126,6 +134,10 @@ class AlbumsController extends Controller
      */
     public function destroy($id)
     {
+        Album::destroy($id);
 
+        flash('album has been deleted');
+
+        return redirect()->back();
     }
 }

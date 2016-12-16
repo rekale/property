@@ -1,7 +1,7 @@
 @extends('layouts.sb-admin')
 
 @section('page-title')
-	Create Album
+	Edit Album
 @endsection
 
 @section('content')
@@ -11,15 +11,13 @@
 		
 		<div class="col-md-9">
 		
-			<form method="POST" action="{{ route('albums.store') }}">
+			<form method="POST" action="{{ route('albums.update', ['id' => $album->id]) }}">
 				{{ csrf_field() }}
+				{{ method_field('PUT') }}
 				<div class="form-group">
 					<label>Apartments:</label>
-					<select class="form-control" name="apartment_id">
-						@foreach($apartments as $apartment)
-							<option value="{{ $apartment->id }}">{{ $apartment->name }}</option>
-						@endforeach
-					</select>
+					<input type="hidden" name="apartment_id" value="{{ $album->apartment->id }}">
+			    	<input type="text" class="form-control" name="name" value="{{ $album->apartment->name }}" disabled="">
 				</div>
 				<div class="form-group">
 					<label>Album Name:</label>

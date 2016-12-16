@@ -49,8 +49,20 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
 		'as' => 'albums.show',
 		'uses' => 'AlbumsController@show'
 	]);
-	Route::get('/albums/{album_id}/images/{apartment_id}', [
+	Route::get('/albums/{id}/edit', [
+		'as' => 'albums.edit',
+		'uses' => 'AlbumsController@edit'
+	]);
+	Route::get('/albums/{id}/images', [
 		'as' => 'albums.show.images',
 		'uses' => 'AlbumsController@showImages'
+	]);
+	Route::put('/albums/{id}', [
+		'as' => 'albums.update',
+		'uses' => 'AlbumsController@update'
+	]);
+	Route::delete('/albums/{id}', [
+		'as' => 'albums.destroy',
+		'uses' => 'AlbumsController@destroy'
 	]);
 });

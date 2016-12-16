@@ -21,7 +21,7 @@ class Apartment extends Model
 
     public function albums()
     {
-        return $this->belongsToMany(Album::class)->withPivot('images');
+        return $this->hasMany(Album::class);
     }
 
     public function getFacilitiesAttribute($value)

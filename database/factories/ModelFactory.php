@@ -1,5 +1,9 @@
 <?php
 
+use App\Apartments\Album;
+use App\Apartments\Apartment;
+use App\Apartments\Photo;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -23,7 +27,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Apartments\Apartment::class, function (Faker\Generator $faker) {
+$factory->define(Apartment::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'cover_image' => $faker->imageUrl(640, 480, 'city'),
@@ -37,10 +41,14 @@ $factory->define(App\Apartments\Apartment::class, function (Faker\Generator $fak
     ];
 });
 
-$factory->define(App\Apartments\Album::class, function (Faker\Generator $faker) {
-    static $password;
-
+$factory->define(Album::class, function (Faker\Generator $faker) {
     return [
     	'name' => $faker->word,
+    ];
+});
+
+$factory->define(Photo::class, function (Faker\Generator $faker) {
+    return [
+        'url' => $faker->imageUrl(640, 480),
     ];
 });

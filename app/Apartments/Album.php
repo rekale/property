@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     protected $fillable = [
+    	'apartment_id',
     	'name',
     ];
 
-    public function apartments($withPivot = false)
+    public function apartment()
     {
-    	$relation = $this->belongsToMany(Apartment::class);
+    	return $this->belongsTo(Apartment::class);
+    }
 
-    	return $withPivot ? $relation->withPivot('images') : $relation;
+    public function photos()
+    {
+    	return $this->hasMany(Photo::class);
     }
 }
