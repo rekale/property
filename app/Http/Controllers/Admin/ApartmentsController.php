@@ -6,19 +6,31 @@ use App\Apartments\Album;
 use App\Apartments\Apartment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApartmentRequest;
+use Illuminate\Http\Request;
 
 class ApartmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $apartments = Apartment::latest()->paginate();
+        $fieldSearchable = [
+            'name',
+            'address',
+            'district',
+            'price'
+        ];
+        
+        $apartments = Apartment::search($request->input('q'))
+                                ->sort($request->input('field'), $request->input('sort'))
+                                ->pricerange($request->input('range'))
+                                ->paginate();
 
-        return view('admin.apartments.index', compact('apartments'));
+        return view('admin.apartments.index', compact('apartments', 'fieldSearchable'));
     }
 
     /**
@@ -55,17 +67,6 @@ class ApartmentsController extends Controller
         flash('apartment has been created.', 'success');
 
         return redirect()->route('apartments.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $apartmentTotal = Apartment::count();
-
+        
         return view('admin.dashboard', compact('apartmentTotal'));
     }
 }

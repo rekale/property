@@ -2,12 +2,43 @@
 
 @section('page-title')
 	Apartements
-	<a class="btn btn-primary" href="{{ route('apartments.create') }}">
+	<a class="btn btn-primary" href="/apartments/create">
 		<i class="fa fa-plus"></i> 
 	</a>
+	<form class="form-inline" action="{{ route('apartments.index') }}" method="GET" style="float: right">
+		<div class="form-group">
+	    	<input type="text" class="form-control" name="q" value="{{ Request::input('q') }}" placeholder="Search here..">
+  		</div>
+  		<button class="btn btn-sm btn-default">Search</button>
+	</form>
 @endsection
 
 @section('content')
+	<div>
+		<form class="form-inline">
+			<div class="form-group">
+				<select name="field" class="form-control">
+					<option value="id">id</option>
+					@foreach($fieldSearchable as $field)
+						<option value="{{ $field }}">{{ $field }}</option>
+					@endforeach	
+				</select>
+			</div>
+			<div class="form-group">
+				<select name="sort" class="form-control">
+					<option name="asc">asc</option>
+					<option name="desc">desc</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="number" name="range[]" class="form-control" value="{{Request::input('range')[0]}}" placeholder="min price..">
+			</div>
+			<div class="form-group">
+				<input type="number" name="range[]" class="form-control" value="{{Request::input('range')[1]}}" placeholder="max price..">
+			</div>
+			<button class="btn btn-default">go</button>
+		</form>
+	</div>
 	@foreach($apartments as $apartment)
 	<hr>
 	<div class="row">
