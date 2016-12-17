@@ -19,7 +19,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->paginate();
+        $users = User::latest()->where('id', '!=', auth()->user()->id)->paginate();
 
         return view('admin.users.index', compact('users'));
     }

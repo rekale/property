@@ -2,9 +2,11 @@
 
 @section('page-title')
 	Apartements
-	<a class="btn btn-primary" href="/apartments/create">
-		<i class="fa fa-plus"></i> 
-	</a>
+	@if(in_array(auth()->user()->level, [2, 3]))
+		<a class="btn btn-primary" href="/apartments/create">
+			<i class="fa fa-plus"></i> 
+		</a>
+	@endif
 	<form class="form-inline" action="{{ route('apartments.index') }}" method="GET" style="float: right">
 		<div class="form-group">
 	    	<input type="text" class="form-control" name="q" value="{{ Request::input('q') }}" placeholder="Search here..">
@@ -86,24 +88,27 @@
 				</tbody>
 			</table>
 			<div class="btn-group">
-				<a class="btn btn-success" href="{{ route('apartments.edit', ['id' => $apartment->id]) }}">
-					<i class="fa fa-pencil"></i>
-				</a>
-				<a  class="btn btn-danger"
-					href="{{ route('apartments.destroy', ['id' => $apartment->id ]) }}" 
-					onclick="if( confirm('are you sure?') ) { 
-								event.preventDefault();
-                                document.getElementById('apartment-{{ $apartment->id }}').submit();
-                     }
-                     else{
-                     	event.preventDefault();
-                     }"
-                 >
-					<i class="fa fa-eraser" aria-hidden="true"></i>
-				</a>
-				<a class="btn btn-success" href="{{ route('apartments.albums.index', ['id' => $apartment->id]) }}">
-					see albums
-				</a>
+				@if(in_array(auth()->user()->level, [2, 3]))
+					<a class="btn btn-success" href="{{ route('apartments.edit', ['id' => $apartment->id]) }}">
+						<i class="fa fa-pencil"></i>
+					</a>
+					<a  class="btn btn-danger"
+						href="{{ route('apartments.destroy', ['id' => $apartment->id ]) }}" 
+						onclick="if( confirm('are you sure?') ) { 
+									event.preventDefault();
+	                                document.getElementById('apartment-{{ $apartment->id }}').submit();
+	                     }
+	                     else{
+	                     	event.preventDefault();
+	                     }"
+	                 >
+						<i class="fa fa-eraser" aria-hidden="true"></i>
+					</a>
+				@endif
+					<a class="btn btn-success" href="{{ route('apartments.albums.index', ['id' => $apartment->id]) }}">
+						see albums
+					</a>
+
 				<form 
 					id="apartment-{{ $apartment->id }}" 
 					action="{{ route('apartments.destroy', ['id' => $apartment->id ]) }}" 

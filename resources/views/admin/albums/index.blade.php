@@ -2,9 +2,11 @@
 
 @section('page-title')
 	Albums from apartment: {{ $apartment->name }}
-	<a class="btn btn-primary" href="{{ route('apartments.albums.create', ['id' => $apartment->id]) }}">
-		<i class="fa fa-plus"></i> 
-	</a>
+	@if(in_array(auth()->user()->level, [2, 3]))
+		<a class="btn btn-primary" href="{{ route('apartments.albums.create', ['id' => $apartment->id]) }}">
+			<i class="fa fa-plus"></i> 
+		</a>
+	@endif
 @endsection
 
 @section('content')
@@ -17,27 +19,29 @@
 	      </a>
 	      <div class="caption">
 	        <h3 style="text-align: center">{{ $album->name }}</h3>
-	        <div style="margin: 0 auto; width: 9em">
-	        	<a href="{{ route('apartments.albums.edit', ['apartmentId' => $apartment->id, 'albumId' => $album->id]) }}">
-	        		<button class="btn btn-success">Edit</button>
-        		</a>
-	        	<button class="btn btn-danger"
-	        			onclick="if( confirm('are you sure?') ) { 
-								event.preventDefault();
-                                document.getElementById('album-{{ $album->id }}').submit();
-                     }
-                     else{
-                     	event.preventDefault();
-                     }"
-                 >
-                 	Delete
-             	</button>
-	        	<form class="hidden" id="album-{{ $album->id }}" 
-        			method="POST" action="{{ route('apartments.albums.destroy', ['apartmentId' => $apartment->id, 'albumId' => $album->id]) }}">
-					{{ method_field('DELETE') }}
-                    {{ csrf_field() }}
-	        	</form>
-	        </div>
+        	@if(in_array(auth()->user()->level, [2, 3]))
+		        <div style="margin: 0 auto; width: 9em">
+		        	<a href="{{ route('apartments.albums.edit', ['apartmentId' => $apartment->id, 'albumId' => $album->id]) }}">
+		        		<button class="btn btn-success">Edit</button>
+	        		</a>
+		        	<button class="btn btn-danger"
+		        			onclick="if( confirm('are you sure?') ) { 
+									event.preventDefault();
+	                                document.getElementById('album-{{ $album->id }}').submit();
+	                     }
+	                     else{
+	                     	event.preventDefault();
+	                     }"
+	                 >
+	                 	Delete
+	             	</button>
+		        	<form class="hidden" id="album-{{ $album->id }}" 
+	        			method="POST" action="{{ route('apartments.albums.destroy', ['apartmentId' => $apartment->id, 'albumId' => $album->id]) }}">
+						{{ method_field('DELETE') }}
+	                    {{ csrf_field() }}
+		        	</form>
+		        </div>
+	         @endif
 	      </div>
 	    </div>
 	  </div>

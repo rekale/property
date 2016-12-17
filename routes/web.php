@@ -27,6 +27,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
 
 	Route::resource('apartments.albums', 'AlbumsController');
 
-	Route::resource('apartments.albums.photos', 'PhotosController', ['only' => ['index', 'create', 'destroy']]);
+	Route::resource('apartments.albums.photos', 'PhotosController', ['except' => ['edit', 'update']]);
 
 });

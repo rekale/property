@@ -75,13 +75,10 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i> {{ auth()->user()->name }} <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
+                        
                         <li class="divider"></li>
                         <li>
                             <a href="{{ route('logout') }}" 
@@ -107,7 +104,19 @@
                         <li>
                             <a href="{{ url('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        @if(Auth::user()->level == 3)
+                        <li>
+                            <a href="#"><i class="fa fa-building-o fa-fw"></i> Apartement<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{ route('apartments.index') }}">List</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('apartments.create') }}">Create</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        @if(auth()->user()->level == 3)
                             <li>
                                 <a href="{{ route('users.index') }}"><i class="fa fa-user fa-fw"></i> Users</a>
                             </li>

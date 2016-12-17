@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Apartments\Album;
 use App\Apartments\Apartment;
+use App\Apartments\Photo;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -16,7 +18,9 @@ class HomeController extends Controller
     public function index()
     {
         $apartmentTotal = Apartment::count();
+        $albumTotal = Album::count();
+        $photoTotal = Photo::count();
         
-        return view('admin.dashboard', compact('apartmentTotal'));
+        return view('admin.dashboard', compact('apartmentTotal', 'albumTotal', 'photoTotal'));
     }
 }
