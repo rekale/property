@@ -12,12 +12,13 @@ class PhotosController extends Controller
 
     public function index($apartmentId, $albumId)
     {
-        $album = Apartment::findOrFail($apartmentId)
-                          ->albums()
+        $apartment = Apartment::findOrFail($apartmentId);
+
+        $album = $apartment->albums()
                           ->with('photos')
                           ->findOrFail($albumId);
 
-        return view('admin.photos.index', compact('album'));
+        return view('admin.photos.index', compact('apartment' ,'album'));
     }
 
     /**
@@ -50,6 +51,20 @@ class PhotosController extends Controller
         $apartment->albums()->attach($request->input('album_id'), ['images' => json_encode($paths)]);
 
         flash('photo has been uploaded', 'success');
+
+        return redirect()->back();
+    }
+
+    public function destroy($apartmentId, $albumId, $photoId)
+    {
+        Apartment::findOrFail($apartmentId)
+                 ->albums()
+                 ->findOrFail($albumId)
+                 ->photos()
+                 ->findOrFail($photoId)
+                 ->delete();
+
+        flash('photo has been deleted', 'success');
 
         return redirect()->back();
     }
