@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class AlbumsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:2,3', ['except' => ['index']]);
+    }
 
     public function index($id)
     {

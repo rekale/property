@@ -13,11 +13,14 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$roles)
     {
-        if(! ($request->user()->level == $role) )
+
+        if(! in_array($request->user()->level, $roles) )
         {
-            return redirect('/');
+            flash('why you want to go there? you don\'t have access.', 'danger');
+
+            return redirect()->back();
         }
 
         return $next($request);

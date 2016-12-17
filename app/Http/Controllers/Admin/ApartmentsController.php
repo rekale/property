@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ApartmentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:2,3', ['except' => ['index']]);
+    }
     /**
      * Display a listing of the resource.
      *

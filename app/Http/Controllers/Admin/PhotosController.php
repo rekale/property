@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 class PhotosController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('role:2,3', ['except' => ['index']]);
+    }
+    
     public function index($apartmentId, $albumId)
     {
         $apartment = Apartment::findOrFail($apartmentId);
