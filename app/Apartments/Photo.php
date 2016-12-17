@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     protected $fillable = [
-    	'photo_id',
+    	'album_id',
     	'url',
     ];
 

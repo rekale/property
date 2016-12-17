@@ -26,33 +26,40 @@ class PhotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function upload()
+    public function create($apartmentId, $albumId)
     {
-        $apartments = Apartment::pluck('name', 'id');
-        $albums = Album::pluck('name', 'id');
+        $apartment = Apartment::findOrFail($apartmentId);
 
-        return view('admin.albums.upload', compact('albums', 'apartments'));
+        $album = $apartment->albums()
+                          ->with('photos')
+                          ->findOrFail($albumId);
+
+        return view('admin.photos.create', compact('album', 'apartment'));
     }
 
-    public function uploadStore(Request $request)
+    public function store($apartmentId, $albumId, Request $request)
     {
-        $apartment = Apartment::find($request->input('apartment_id'));
+        $apartment = Apartment::findOrFail($apartmentId);
+
+        $album = $apartment->albums()
+                          ->with('photos')
+                          ->findOrFail($albumId);
+
         $images = $request->file('images');
-        $paths = [];
 
         foreach($images as $image) {
             
-            $link = $image->store('apartments/'. $apartment->id . '/albums');
+            $link = $image->store('/');
                 
-            $paths[] = asset('storage/' . $link); 
+            $album->photos()->create([
+                'url' => asset('storage/' . $link),
+            ]);
     
         }
 
-        $apartment->albums()->attach($request->input('album_id'), ['images' => json_encode($paths)]);
-
         flash('photo has been uploaded', 'success');
 
-        return redirect()->back();
+        return redirect()->route('apartments.albums.photos.index', compact('apartmentId', 'albumId'));
     }
 
     public function destroy($apartmentId, $albumId, $photoId)
