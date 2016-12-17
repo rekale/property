@@ -25,7 +25,8 @@ class ApartmentsController extends Controller
             'price'
         ];
         
-        $apartments = Apartment::search($request->input('q'))
+        $apartments = Apartment::with('albums')
+                                ->search($request->input('q'))
                                 ->sort($request->input('field'), $request->input('sort'))
                                 ->pricerange($request->input('range'))
                                 ->paginate();

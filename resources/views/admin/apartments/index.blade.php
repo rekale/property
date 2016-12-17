@@ -101,6 +101,9 @@
                  >
 					<i class="fa fa-eraser" aria-hidden="true"></i>
 				</a>
+				<a class="btn btn-success" href="{{ route('apartments.albums.index', ['id' => $apartment->id]) }}">
+					see albums
+				</a>
 				<form 
 					id="apartment-{{ $apartment->id }}" 
 					action="{{ route('apartments.destroy', ['id' => $apartment->id ]) }}" 

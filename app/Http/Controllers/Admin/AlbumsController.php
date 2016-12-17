@@ -10,68 +10,39 @@ use Illuminate\Http\Request;
 class AlbumsController extends Controller
 {
 
-    public function index()
+    public function index($id)
     {
-        $apartments = Apartment::latest()->paginate();
+        $apartment = Apartment::with('albums')->find($id); 
 
-        return view('admin.albums.index', compact('apartments'));
+        return view('admin.albums.index', compact('apartment'));
     }
 
-    public function update($id, Request $request)
+    public function update($apartmentId, $albumId, Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:255'
         ]);
 
-        Album::find($id)->update($request->all());
+        Apartment::findOrFail($apartmentId)
+                 ->albums()
+                 ->findOrFail($albumId)
+                 ->update($request->all());
 
         flash('album has been updated');
 
-        return redirect()->back();
+        return redirect()->route('apartments.albums.index', ['id' => $apartmentId]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function upload()
-    {
-        $apartments = Apartment::pluck('name', 'id');
-        $albums = Album::pluck('name', 'id');
-
-        return view('admin.albums.upload', compact('albums', 'apartments'));
-    }
-
-    public function uploadStore(Request $request)
-    {
-        $apartment = Apartment::find($request->input('apartment_id'));
-        $images = $request->file('images');
-        $paths = [];
-
-        foreach($images as $image) {
-            
-            $link = $image->store('apartments/'. $apartment->id . '/albums');
-                
-            $paths[] = asset('storage/' . $link); 
     
-        }
-
-        $apartment->albums()->attach($request->input('album_id'), ['images' => json_encode($paths)]);
-
-        flash('photo has been uploaded', 'success');
-
-        return redirect()->back();
-    }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $apartments = Apartment::all();
-        return view('admin.albums.create', compact('apartments'));
+        $apartment = Apartment::findOrFail($id);
+        
+        return view('admin.albums.create', compact('apartment'));
     }
 
     /**
@@ -80,30 +51,17 @@ class AlbumsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:255'
         ]);
 
-        Album::create($request->all());
+        Apartment::findOrFail($id)->albums()->create($request->all());
 
         flash('New album has been created');
 
-        return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $apartment = Apartment::with('albums')->find($id); 
-
-        return view('admin.albums.show', compact('apartment'));
+        return redirect()->route('apartments.albums.index', ['id' => $id]);
     }
 
     /**
@@ -112,18 +70,13 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($apartmentId, $albumId)
     {
-        $album = Album::findOrFail($id);
+        $apartment = Apartment::with(['albums' => function($query) use ($albumId) {
+            $query->whereId($albumId);
+        }])->findOrFail($apartmentId);
 
-        return view('admin.albums.edit', compact('album'));
-    }
-
-    public function showImages($id)
-    {
-        $album = Album::with('photos')->find($id);
-
-        return view('admin.albums.show-images', compact('album'));
+        return view('admin.albums.edit', compact('apartment'));
     }
 
     /**
@@ -132,12 +85,15 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($apartmentId, $albumId)
     {
-        Album::destroy($id);
+        Apartment::findOrFail($apartmentId)
+                 ->albums()
+                 ->findOrFail($albumId)
+                 ->delete();
 
         flash('album has been deleted');
 
-        return redirect()->back();
+        return redirect()->route('apartments.albums.index', ['id' => $apartmentId]);
     }
 }

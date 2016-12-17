@@ -107,20 +107,6 @@
                         <li>
                             <a href="{{ url('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
-                            <a href="{{ url('/') }}"><i class="fa fa-camera-retro fa-fw"></i> Albums</a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{ route('albums.create') }}">Create Album</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('albums.upload') }}">Upload Photos</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('albums.index') }}">List Album</a>
-                                </li>
-                            </ul>
-                        </li>
                         @if(Auth::user()->level == 3)
                             <li>
                                 <a href="{{ route('users.index') }}"><i class="fa fa-user fa-fw"></i> Users</a>

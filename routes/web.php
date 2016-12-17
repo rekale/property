@@ -25,44 +25,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
 
 	Route::resource('users', 'UsersController');
 
-	Route::get('/albums', [
-		'as' => 'albums.index',
-		'uses' => 'AlbumsController@index'
-	]);	
-	Route::get('/albums/create', [
-		'as' => 'albums.create',
-		'uses' => 'AlbumsController@create'
-	]);		
-	Route::post('/albums', [
-		'as' => 'albums.store',
-		'uses' => 'AlbumsController@store'
-	]);
-	Route::get('/albums/upload', [
-		'as' => 'albums.upload',
-		'uses' => 'AlbumsController@upload'
-	]);
-	Route::post('/albums/upload/store', [
-		'as' => 'albums.upload.store',
-		'uses' => 'AlbumsController@uploadStore'
-	]);
-	Route::get('/albums/{id}', [
-		'as' => 'albums.show',
-		'uses' => 'AlbumsController@show'
-	]);
-	Route::get('/albums/{id}/edit', [
-		'as' => 'albums.edit',
-		'uses' => 'AlbumsController@edit'
-	]);
-	Route::get('/albums/{id}/images', [
-		'as' => 'albums.show.images',
-		'uses' => 'AlbumsController@showImages'
-	]);
-	Route::put('/albums/{id}', [
-		'as' => 'albums.update',
-		'uses' => 'AlbumsController@update'
-	]);
-	Route::delete('/albums/{id}', [
-		'as' => 'albums.destroy',
-		'uses' => 'AlbumsController@destroy'
-	]);
+	Route::resource('apartments.albums', 'AlbumsController');
+
+	Route::resource('apartments.albums.photos', 'PhotosController');
+
 });
