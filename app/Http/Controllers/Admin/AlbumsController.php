@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Apartments\Album;
 use App\Apartments\Apartment;
+use App\Apartments\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -27,10 +28,16 @@ class AlbumsController extends Controller
             'name' => 'required|max:255'
         ]);
 
-        Apartment::findOrFail($apartmentId)
+        $album = Apartment::findOrFail($apartmentId)
                  ->albums()
-                 ->findOrFail($albumId)
-                 ->update($request->all());
+                 ->findOrFail($albumId);
+
+        $album->update($request->all());
+
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'album ' . $album->name . ' has been updated',
+        ]);
 
         flash('album has been updated');
 
@@ -62,6 +69,11 @@ class AlbumsController extends Controller
         ]);
 
         Apartment::findOrFail($id)->albums()->create($request->all());
+
+         Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'album ' . $album->name . ' has been created',
+        ]);
 
         flash('New album has been created');
 
@@ -95,6 +107,11 @@ class AlbumsController extends Controller
                  ->albums()
                  ->findOrFail($albumId)
                  ->delete();
+
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'album ' . $album->name . ' has been deleted',
+        ]);
 
         flash('album has been deleted');
 

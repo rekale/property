@@ -62,6 +62,11 @@ class PhotosController extends Controller
     
         }
 
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'A photo has been uploaded in album ' . $album->name . 'in apartment ' . $apartment->name,
+        ]);
+
         flash('photo has been uploaded', 'success');
 
         return redirect()->route('apartments.albums.photos.index', compact('apartmentId', 'albumId'));
@@ -75,6 +80,11 @@ class PhotosController extends Controller
                  ->photos()
                  ->findOrFail($photoId)
                  ->delete();
+
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'A photo has been deleted in album ' . $album->name . 'in apartment ' . $apartment->name,
+        ]);
 
         flash('photo has been deleted', 'success');
 

@@ -69,6 +69,11 @@ class ApartmentsController extends Controller
 
         $apartment->save();
 
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'apartment ' . $apartment->name . ' has been created',
+        ]);
+
         flash('apartment has been created.', 'success');
 
         return redirect()->route('apartments.index');
@@ -119,6 +124,11 @@ class ApartmentsController extends Controller
 
         $apartment->save();
 
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'apartment ' . $apartment->name . ' has been updated',
+        ]);
+
         flash('apartement has been updated', 'success');
 
         return redirect()->back();
@@ -133,6 +143,11 @@ class ApartmentsController extends Controller
     public function destroy($id)
     {
         Apartment::destroy($id);
+
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'apartment ' . $apartment->name . ' has been deleted',
+        ]);
 
         flash('apartment has been deleted', 'success');
 
