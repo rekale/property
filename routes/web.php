@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
 	Route::resource('apartments.albums.photos', 'PhotosController', ['except' => ['edit', 'update']]);
 
 	Route::get('notifications', [
-		'as' => 'notification.index',
+		'as' => 'notifications.index',
 		'uses' => 'NotificationsController@index',
 	]);
 

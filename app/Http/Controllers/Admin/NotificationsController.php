@@ -17,7 +17,7 @@ class NotificationsController extends Controller
 
     public function index()
     {
-        $notifications = Notification::latest()->paginate();
+        $notifications = Notification::with('user')->latest()->paginate();
 
         return view('admin.notifications.index', compact('notifications'));
     }

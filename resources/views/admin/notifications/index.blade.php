@@ -10,7 +10,7 @@
 		<div class="col-md-12">
 			<ul>
 			@foreach($notifications as $notif)
-				<li>{{$notif->message}} {{ $notif->created_at->diffForHumans() }}</li>
+				<li>{{$notif->message}} {{ $notif->created_at->diffForHumans() }} by {{ $notif->user->name }}</li>
 			@endforeach
 			</ul>
 		</div>
