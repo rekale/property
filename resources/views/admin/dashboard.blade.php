@@ -36,7 +36,7 @@
                             <i class="fa fa-exclamation-circle fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">12</div>
+                            <div class="huge">{{ $notifTotal }}</div>
                             <div>Notification</div>
                         </div>
                     </div>

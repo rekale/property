@@ -1,3 +1,4 @@
+@inject('notif', 'App\Apartments\Notification')
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,42 +23,6 @@
                             <a href="#">
                                 <div>
                                     <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
                                     <span class="pull-right text-muted small">4 minutes ago</span>
                                 </div>
                             </a>

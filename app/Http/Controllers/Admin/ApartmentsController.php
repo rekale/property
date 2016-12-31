@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Apartments\Album;
 use App\Apartments\Apartment;
+use App\Apartments\Notification;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApartmentRequest;
 use Illuminate\Http\Request;
@@ -140,14 +141,16 @@ class ApartmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        Apartment::destroy($id);
+        $apartment = Apartment::findOrFail($id);
 
         Notification::create([
             'user_id' => $request->user()->id,
             'message' => 'apartment ' . $apartment->name . ' has been deleted',
         ]);
+
+        $apartment->delete();
 
         flash('apartment has been deleted', 'success');
 
