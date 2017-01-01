@@ -34,6 +34,8 @@ class ApartmentsController extends Controller
                                 ->pricerange($request->input('range'))
                                 ->paginate();
 
+
+
         return view('admin.apartments.index', compact('apartments', 'fieldSearchable'));
     }
 
@@ -43,10 +45,8 @@ class ApartmentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $albums = Album::pluck('name', 'id');
-        
-        return view('admin.apartments.create', compact('albums'));
+    {   
+        return view('admin.apartments.create');
     }
 
     /**
