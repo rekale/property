@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Apartments\Album;
 use App\Apartments\Apartment;
+use App\Apartments\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -72,14 +73,14 @@ class PhotosController extends Controller
         return redirect()->route('apartments.albums.photos.index', compact('apartmentId', 'albumId'));
     }
 
-    public function destroy($apartmentId, $albumId, $photoId)
+    public function destroy($apartmentId, $albumId, $photoId, Request $request)
     {
-        Apartment::findOrFail($apartmentId)
-                 ->albums()
-                 ->findOrFail($albumId)
-                 ->photos()
-                 ->findOrFail($photoId)
-                 ->delete();
+        $apartment = Apartment::findOrFail($apartmentId);
+        $album = $apartment->albums()->findOrFail($albumId);
+                 
+        $album->photos()
+              ->findOrFail($photoId)
+              ->delete();
 
         Notification::create([
             'user_id' => $request->user()->id,

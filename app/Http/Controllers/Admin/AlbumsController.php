@@ -68,7 +68,7 @@ class AlbumsController extends Controller
             'name' => 'required|max:255'
         ]);
 
-        Apartment::findOrFail($id)->albums()->create($request->all());
+        $album = Apartment::findOrFail($id)->albums()->create($request->all());
 
          Notification::create([
             'user_id' => $request->user()->id,
@@ -101,13 +101,14 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($apartmentId, $albumId)
+    public function destroy($apartmentId, $albumId, Request $request)
     {
-        Apartment::findOrFail($apartmentId)
+        $album = Apartment::findOrFail($apartmentId)
                  ->albums()
-                 ->findOrFail($albumId)
-                 ->delete();
+                 ->findOrFail($albumId);
 
+        $album->delete();
+        
         Notification::create([
             'user_id' => $request->user()->id,
             'message' => 'album ' . $album->name . ' has been deleted',

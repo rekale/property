@@ -2,9 +2,6 @@
 
 @section('page-title')
 	Users
-	<a class="btn btn-primary" href="{{ route('users.create') }}">
-		<i class="fa fa-plus"></i> 
-	</a>
 @endsection
 
 @section('content')

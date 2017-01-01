@@ -11,8 +11,8 @@ class User extends Authenticatable
 
     const LEVEL = [
         1 => 'User',
-        2 => 'Admin',
-        3 => 'Manager',
+        2 => 'Manager',
+        3 => 'Admin',
     ];
 
     /**

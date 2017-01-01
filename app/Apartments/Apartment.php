@@ -40,11 +40,6 @@ class Apartment extends Model
         return isset($keyword) ? $query->where('name', 'LIKE', '%' . $keyword . '%') : $query;
     }
 
-    public function scopeSort($query, $field = null, $sortType = 'asc')
-    {
-        return isset($field) ? $query->orderBy($field, $sortType) : $query;
-    }
-
     public function scopePricerange($query, $range)
     {
         return ! empty($range[0]) ? $query->where('price', '>=' , $range[0])->where('price', '>=' , $range[1]) : $query;
