@@ -57,7 +57,7 @@ class PhotosController extends Controller
             
             $link = $image->store('/');
                 
-            $album->photos()->create([
+            $photos[] = $album->photos()->create([
                 'url' => asset('storage/' . $link),
             ]);
     
@@ -65,7 +65,7 @@ class PhotosController extends Controller
 
         Notification::create([
             'user_id' => $request->user()->id,
-            'message' => 'A photo has been uploaded in album ' . $album->name . 'in apartment ' . $apartment->name,
+            'message' =>  count($photos) . ' ' . str_plural('photo', count($photos)) . ' has been uploaded in album ' . $album->name . 'in apartment ' . $apartment->name,
         ]);
 
         flash('photo has been uploaded', 'success');
@@ -84,7 +84,7 @@ class PhotosController extends Controller
 
         Notification::create([
             'user_id' => $request->user()->id,
-            'message' => 'A photo named ' . $photo->name . ' has been deleted in album ' . $album->name . 'in apartment ' . $apartment->name,
+            'message' => 'A photo has been deleted in album ' . $album->name . 'in apartment ' . $apartment->name,
         ]);
 
         flash('photo has been deleted', 'success');
