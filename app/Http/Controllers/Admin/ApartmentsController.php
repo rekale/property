@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Apartments\Album;
 use App\Apartments\Apartment;
 use App\Apartments\Notification;
+use App\Http\Controllers\Admin\BubbleSortTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApartmentRequest;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ApartmentsController extends Controller
 {
+    use BubbleSortTrait;
+
     public function __construct()
     {
         $this->middleware('role:2,3', ['except' => ['index']]);
@@ -32,9 +36,29 @@ class ApartmentsController extends Controller
         
         $apartments = Apartment::search($request->input('q'))
                                 ->pricerange($request->input('range'))
-                                ->paginate();
+                                ->get();
 
+        if($request->has('field') && $request->has('sort')) {
 
+            if($request->input('sort') == 'asc'){
+                $apartments = $this->sortAsc($apartments, $request->input('field'));
+            }
+            else if($request->input('sort') == 'desc') {
+                $apartments = $this->sortDesc($apartments, $request->input('field'));
+            }
+
+        }
+
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 15;
+
+        //Slice the apartments to get the items to display in current page
+        $apartmentsResults = $apartments->slice(($currentPage-1) * $perPage, $perPage)->all();
+
+        //Create our paginator and pass it to the view
+        $apartments = new LengthAwarePaginator($apartmentsResults, $apartments->count(), $perPage);
+        
+        $apartments->setPath('apartments'); 
 
         return view('admin.apartments.index', compact('apartments', 'fieldSearchable'));
     }

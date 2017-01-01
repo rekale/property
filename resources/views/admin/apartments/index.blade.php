@@ -20,16 +20,21 @@
 		<form class="form-inline">
 			<div class="form-group">
 				<select name="field" class="form-control">
-					<option value="id">id</option>
 					@foreach($fieldSearchable as $field)
-						<option value="{{ $field }}">{{ $field }}</option>
+						<option value="{{ $field }}" {{Request::input('field') == $field ? 'selected':''}}>
+							{{ $field }}
+						</option>
 					@endforeach	
 				</select>
 			</div>
 			<div class="form-group">
 				<select name="sort" class="form-control">
-					<option name="asc">asc</option>
-					<option name="desc">desc</option>
+					<option name="asc" {{Request::input('sort') == $field ? 'selected':''}}>
+						asc
+					</option>
+					<option name="desc" {{Request::input('sort') == $field ? 'selected':''}}>
+						desc
+					</option>
 				</select>
 			</div>
 			<div class="form-group">
