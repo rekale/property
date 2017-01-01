@@ -21,28 +21,6 @@ class AlbumsController extends Controller
 
         return view('admin.albums.index', compact('apartment'));
     }
-
-    public function update($apartmentId, $albumId, Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|max:255'
-        ]);
-
-        $album = Apartment::findOrFail($apartmentId)
-                 ->albums()
-                 ->findOrFail($albumId);
-
-        $album->update($request->all());
-
-        Notification::create([
-            'user_id' => $request->user()->id,
-            'message' => 'album ' . $album->name . ' has been updated',
-        ]);
-
-        flash('album has been updated');
-
-        return redirect()->route('apartments.albums.index', ['id' => $apartmentId]);
-    }
     
     /**
      * Show the form for creating a new resource.
@@ -95,6 +73,28 @@ class AlbumsController extends Controller
         return view('admin.albums.edit', compact('apartment'));
     }
 
+    public function update($apartmentId, $albumId, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255'
+        ]);
+
+        $album = Apartment::findOrFail($apartmentId)
+                 ->albums()
+                 ->findOrFail($albumId);
+
+        $album->update($request->all());
+
+        Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => 'album ' . $album->name . ' has been updated',
+        ]);
+
+        flash('album has been updated');
+
+        return redirect()->route('apartments.albums.index', ['id' => $apartmentId]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -108,7 +108,7 @@ class AlbumsController extends Controller
                  ->findOrFail($albumId);
 
         $album->delete();
-        
+
         Notification::create([
             'user_id' => $request->user()->id,
             'message' => 'album ' . $album->name . ' has been deleted',

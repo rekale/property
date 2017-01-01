@@ -33,7 +33,7 @@ class UsersController extends Controller
      */
     public function update($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         $user->active = ! $user->active;
 

@@ -12,7 +12,7 @@ class NotificationsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:2,3', ['except' => ['index']]);
+        $this->middleware('role:2,3');
     }
 
     public function index()

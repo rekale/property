@@ -78,13 +78,13 @@ class PhotosController extends Controller
         $apartment = Apartment::findOrFail($apartmentId);
         $album = $apartment->albums()->findOrFail($albumId);
                  
-        $album->photos()
-              ->findOrFail($photoId)
-              ->delete();
+        $photo = $album->photos()->findOrFail($photoId);
+
+        $photo->delete();
 
         Notification::create([
             'user_id' => $request->user()->id,
-            'message' => 'A photo has been deleted in album ' . $album->name . 'in apartment ' . $apartment->name,
+            'message' => 'A photo named ' . $photo->name . ' has been deleted in album ' . $album->name . 'in apartment ' . $apartment->name,
         ]);
 
         flash('photo has been deleted', 'success');

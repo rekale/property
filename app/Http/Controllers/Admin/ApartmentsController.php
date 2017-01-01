@@ -102,7 +102,7 @@ class ApartmentsController extends Controller
     {
         $input = $request->all(); 
         
-        $apartment = Apartment::find($id);
+        $apartment = Apartment::findOrFail($id);
 
         $apartment->name = $input['name'];
         $apartment->address = $input['address'];
@@ -143,12 +143,12 @@ class ApartmentsController extends Controller
     {
         $apartment = Apartment::findOrFail($id);
 
+        $apartment->delete();
+
         Notification::create([
             'user_id' => $request->user()->id,
             'message' => 'apartment ' . $apartment->name . ' has been deleted',
         ]);
-
-        $apartment->delete();
 
         flash('apartment has been deleted', 'success');
 
