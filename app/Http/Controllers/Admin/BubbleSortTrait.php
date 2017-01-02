@@ -6,31 +6,44 @@ trait BubbleSortTrait
 {
     public function sortAsc($items, $field)
     {
-        for ( $i = 0; $i < $items->count(); $i++ ) {
-           for ($j = 0; $j < $items->count(); $j++ ) {
-              if ($items[$i]->{$field} < $items[$j]->{$field}){
-                 $temp = $items[$i];
-                 $items[$i] = $items[$j];
-                 $items[$j] = $temp;
-              }         
-           }
-        }
+        $sorted = false;
 
+        while (! $sorted) {
+            $sorted = true;
+
+            for ($i = 0; $i < $items->count() - 1; ++$i) {   
+                
+                 if ($items[$i]->{$field} > $items[$i+1]->{$field}) {
+                    $temp = $items[$i];
+                    $items[$i] = $items[$i + 1];
+                    $items[$i + 1] = $temp;
+                      
+                    $sorted = false;
+                }
+            }
+
+        }
         return $items;
     }
 
     public function sortDesc($items, $field)
     {
-        for ( $i = 0; $i < $items->count(); $i++ ) {
-           for ($j = 0; $j < $items->count(); $j++ ) {
-              if ($items[$i]->{$field} > $items[$j]->{$field}){
-                 $temp = $items[$i];
-                 $items[$i] = $items[$j];
-                 $items[$j] = $temp;
-              }         
-           }
-        }
+        $sorted = false;
+        while (! $sorted) {
+            $sorted = true;
 
+            for ($i = 0; $i < $items->count() - 1; ++$i) {   
+                if ($items[$i]->{$field} < $items[$i+1]->{$field}) {
+                    $temp = $items[$i];
+                    $items[$i] = $items[$i + 1];
+                    $items[$i + 1] = $temp;
+                      
+                    $sorted = false;
+                }
+            }
+
+        }
         return $items;
     }
+
 }
